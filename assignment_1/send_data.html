@@ -1,0 +1,83 @@
+<html>
+<head> 
+    <title>Form</title>
+    <style>
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+        }
+        table {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+    </style>
+    <script>
+        function submit_form(){
+            const type = document.getElementById("type").value
+            const time = document.getElementById("time").value
+            const place = document.getElementById("place").value
+            const value = document.getElementById("value").value
+            const unit = document.getElementById("unit").value
+                const dataToPost = {
+                    type: type,
+                    time: time,
+                    place: place,
+                    value: value,
+                    unit: unit
+                }
+                if (type == "wind speed")
+                    dataToPost.direction = document.getElementById("other").value
+                if (type == "precipitation_type")
+                    dataToPost.precipitation_type = document.getElementById("other").value
+
+                const request = new XMLHttpRequest()
+                request.open('POST', 'http://localhost:8080/data')
+                request.setRequestHeader('Content-Type', 'application/json')
+                request.setRequestHeader('Accept', 'application/json')
+                request.send(JSON.stringify(dataToPost))
+                request.onload = () => {
+                    const x = JSON.parse(request.responseText)
+                    console.log(request);
+                    if (request.status == 201)
+                        window.location = "/index.html"
+                }
+        }
+        
+    </script>
+</head>
+<body>
+        <h1>Add Weather data</h1>
+        <div class="field">
+            <label for="name">Type:</label>
+            <input type="text" id="type" name="type" />
+            <small></small>
+        </div>
+        <div class="field">
+            <label for="time">Time:</label>
+            <input type="text" id="time" name="time" />
+            <small></small>
+        </div>
+        <div class="field">
+            <label for="place">Place:</label>
+            <input type="text" id="place" name="place" />
+            <small></small>
+        </div>
+        <div class="field">
+            <label for="value">Value:</label>
+            <input type="number" id="value" name="value" />
+            <small></small>
+        </div>
+        <div class="field">
+            <label for="unit">Unit:</label>
+            <input type="text" id="unit" name="unit" />
+            <small></small>
+        </div>
+        <div class="field">
+            <label for="other">Other(If needed):</label>
+            <input type="text" id="other" name="other" />
+            <small></small>
+        </div>
+        <button type="submit" onclick="submit_form()">Add data</button>
+</body>
+</html>

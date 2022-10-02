@@ -1,0 +1,107 @@
+<html>
+<head> 
+    <title>Data</title>
+    <style>
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+        }
+        table {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+    </style>
+    <script type = 'module'>
+        import model from './model.js'
+        import view from './view.js'
+
+        let city = "Horsens"
+        const listeners = []
+        const listen = l => listeners.push(l)
+        listeners.forEach(l => l(event))
+
+        const h = document.getElementById("horsens");
+        h.addEventListener("click", function() {
+            city = "Horsens"
+            getData()
+        });
+
+        const a = document.getElementById("aarhus");
+        a.addEventListener("click", function() {
+            city = "Aarhus"
+            getData()
+        });
+
+        const c = document.getElementById("copenhagen");
+        c.addEventListener("click", function() {
+            city = "Copenhagen"
+            getData()
+        });
+
+        function display(theView, data, city) {
+            document.getElementById("title").innerHTML = city;
+            const theModel = model(data)
+            theView.update(theModel)
+        }
+
+        window.init = function(){
+            getData()
+        } 
+
+        const getData = () => {
+            const theView = view(window)
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', `http://localhost:8080/data/${city}`)
+            xhr.setRequestHeader('Accept', 'application/json')
+            xhr.onload = () => {
+                const text = xhr.responseText
+                const data = JSON.parse(text)
+                display(theView, data, city)
+            }
+            xhr.onerror = () => {
+                theView.displayError(xhr.responseText)
+            }
+            xhr.send()
+        }
+       
+    </script>
+</head>
+<body onload="init()">
+    <div>
+        <div>
+            <button id="horsens">Horsens</button>
+            <button id="aarhus">Aarhus</button>
+            <button id="copenhagen">Copenhagen</button>
+        </div>
+        <div>
+            <h1 id="title"></h1>
+            <p id="minTemp"></p>
+            <p id="maxTemp"></p>
+            <p id="totalPrec"></p>
+            <p id="averageWind"></p>
+        </div>
+        <h4>Temperature</h4>
+        <table id='temperature'>
+            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+            <tbody id='temperature_data'></tbody>
+        </table>
+        <h4>Precipitation</h4>
+        <table id='precipitation'>
+          <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+          <tbody id='precipitation_data'></tbody>
+        </table>
+        <h4>Wind speed</h4>
+        <table id='wind'>
+            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+            <tbody id='wind_data'></tbody>
+        </table>
+        <h4>Cloud coverage</h4>
+        <table id='cloud'>
+            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+            <tbody id='cloud_data'></tbody>
+        </table>
+        <p id='error messages'>
+    </div>
+</body>
+</html>
