@@ -1,6 +1,6 @@
 <html>
 <head> 
-    <title>Data</title>
+    <title>Forecast</title>
     <style>
         td {
             width: 40px;
@@ -14,9 +14,12 @@
     </style>
     <script type = 'module'>
         import model from './model.js'
-        import view from './viewData.js'
+        import view from './viewForecast.js'
 
         let city = "Horsens"
+        const listeners = []
+        const listen = l => listeners.push(l)
+        listeners.forEach(l => l(event))
 
         const h = document.getElementById("horsens");
         h.addEventListener("click", function() {
@@ -48,14 +51,12 @@
 
         const getData = () => {
             const theView = view(window)
-            fetch( `http://localhost:8080/data/${city}`)
+            fetch( `http://localhost:8080/forecast/${city}`)
             .then(res => res.ok ? res : Promise.reject(res.statusText))
             .then(res => res.json())
             .then(data => display(theView, data, city))
             .catch(error => theView.displayError(error))
         }
-
-        console.log(city);
        
     </script>
 </head>
@@ -75,22 +76,22 @@
         </div>
         <h4>Temperature</h4>
         <table id='temperature'>
-            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+            <thead><tr><td>Time</td><td>Type</td><td>From</td><td>To</td><td>Unit</td></tr></thead>
             <tbody id='temperature_data'></tbody>
         </table>
         <h4>Precipitation</h4>
         <table id='precipitation'>
-          <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td><td>Precipitation type</td></tr></thead>
+          <thead><tr><td>Time</td><td>Type</td><td>From</td><td>To</td><td>Unit</td><td>Precipitation type</td></tr></thead>
           <tbody id='precipitation_data'></tbody>
         </table>
         <h4>Wind speed</h4>
         <table id='wind'>
-            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td><td>Direction</td></tr></thead>
+            <thead><tr><td>Time</td><td>Type</td><td>From</td><td>To</td><td>Unit</td><td>Direction</td></tr></thead>
             <tbody id='wind_data'></tbody>
         </table>
         <h4>Cloud coverage</h4>
         <table id='cloud'>
-            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+            <thead><tr><td>Time</td><td>Type</td><td>From</td><td>To</td><td>Unit</td></tr></thead>
             <tbody id='cloud_data'></tbody>
         </table>
         <p id='error messages'>

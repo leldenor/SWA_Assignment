@@ -11,6 +11,11 @@ export default window => {
         tr.insertCell().appendChild(document.createTextNode(p.type))
         tr.insertCell().appendChild(document.createTextNode(p.value))
         tr.insertCell().appendChild(document.createTextNode(p.unit))
+
+        if (p.direction != undefined)
+            tr.insertCell().appendChild(document.createTextNode(p.direction))
+        if (p.precipitation_type != undefined)
+            tr.insertCell().appendChild(document.createTextNode(p.precipitation_type))
     }
     const addStatistics = (stats, type) => {
         switch (type) {

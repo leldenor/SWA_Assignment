@@ -14,7 +14,7 @@
     </style>
     <script type = 'module'>
         import model from './model.js'
-        import view from './view.js'
+        import view from './viewData.js'
 
         let city = "Horsens"
         const listeners = []
@@ -88,12 +88,12 @@
         </table>
         <h4>Precipitation</h4>
         <table id='precipitation'>
-          <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+          <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td><td>Precipitation type</td></tr></thead>
           <tbody id='precipitation_data'></tbody>
         </table>
         <h4>Wind speed</h4>
         <table id='wind'>
-            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td></tr></thead>
+            <thead><tr><td>Time</td><td>Type</td><td>Value</td><td>Unit</td><td>Direction</td></tr></thead>
             <tbody id='wind_data'></tbody>
         </table>
         <h4>Cloud coverage</h4>
