@@ -4,9 +4,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { User } from "../model/model"
 import { Dispatch, State } from "../store"
-import { newGame, scores } from "../thunks"
-import { HighScores } from "./HighScores"
-import { LoginForm } from "./Login"
+import { newGame, scores, logout } from "../thunks"
 
 export const Profile = () => {
     const gameState = useSelector((s: State) => s.game)
@@ -24,6 +22,7 @@ export const Profile = () => {
     const dispatch: Dispatch = useDispatch()
     return (
         <>
+            <Button onClick={() => dispatch(logout(gameState.token || ""))}>Logout</Button>
             <h1>Hello, {gameState.player?.username}</h1>
             <h3>Wanna play</h3>
             <Button onClick={() => (dispatch(newGame(gameState.token || "", gameState.player || { id: -1, password: "", username: "" })))}>Play</Button>

@@ -1,4 +1,4 @@
-import { Game, User } from "./model/model"
+import type { Game, User } from "./model/model"
 
 const callServer = async <Return>(url: string, init: RequestInit = {}): Promise<Return> => {
     const response = await fetch(url, { ...init, headers: { ...init.headers, 'Accept': 'application/json', 'Content-Type': 'application/json' } })
@@ -26,6 +26,7 @@ export const logout = async (token: string) => {
         return Promise.reject(response.statusText)
     }
 }
+
 export const newGame = (token: string) => createGame<Game>(`http://localhost:9090/games?token=${token}`)
 
 export const updateGame = async (game: Game, token: string) => {
@@ -37,5 +38,4 @@ export const updateGame = async (game: Game, token: string) => {
     }
 }
 
-export const getGames = () => read<Game[]>('http://localhost:9090/game')
-
+export const getGames = (token: string) => read<Game[]>(`http://localhost:9090/games?token=${token}`)

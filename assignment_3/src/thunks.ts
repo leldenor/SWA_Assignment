@@ -15,9 +15,9 @@ export const login = (player: User) => {
         dispatch(gameSlice.actions.login({ token: user.token, player: { id: user.userId, username: player.username, password: player.password } }))
     }
 }
-export const logout = (player: User) => {
+export const logout = (token: string) => {
     return async function (dispatch: Dispatch, _: GetState) {
-        await api.logout(player)
+        await api.logout(token)
         dispatch(gameSlice.actions.logout())
     }
 }
