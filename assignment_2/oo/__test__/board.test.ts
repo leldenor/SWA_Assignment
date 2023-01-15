@@ -120,9 +120,9 @@ describe("Board", () => {
                 it("does not allow moves that make no matches", () => {
                     expect(board.canMove({ row: 0, col: 0 }, { row: 0, col: 0 })).toEqual(false)
                 })
-                /*it("does not count the piece that is moved away", () => {
+                it("does not count the piece that is moved away", () => {
                     expect(board.canMove({ row: 1, col: 1 }, { row: 2, col: 1 })).toEqual(false)
-                })*/
+                })
                 it("recognizes moves on different rows and columns as invalid", () => {
                     expect(board.canMove({ row: 0, col: 3 }, { row: 1, col: 2 })).toEqual(false)
                 })
@@ -133,7 +133,6 @@ describe("Board", () => {
                 })
             })
         })
-
         describe("making moves", () => {
             let events: BoardEvent<String>[]
             let generator: GeneratorFake<String>
@@ -161,7 +160,7 @@ describe("Board", () => {
                 board.move({ row: 2, col: 1 }, { row: 0, col: 1 })
                 expect(events.slice(0, 1)).toEqual([{ kind: 'Match', match: { matched: 'A', positions: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 0, col: 2 }] } }])
             })
-            /*it("finds single horizontal match when moving second piece to a match", () => {
+            it("finds single horizontal match when moving second piece to a match", () => {
                 generator.prepare('C', 'D', 'A')
                 board.move({ row: 0, col: 1 }, { row: 2, col: 1 })
                 expect(events.slice(0, 1)).toEqual([{ kind: 'Match', match: { matched: 'A', positions: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 0, col: 2 }] } }])
@@ -211,10 +210,10 @@ describe("Board", () => {
                 board.move({ row: 0, col: 3 }, { row: 1, col: 2 })
                 board.move({ row: 3, col: 3 }, { row: -1, col: 3 })
                 expect(events).toEqual([])
-            })*/
+            })
         })
 
-        /*describe("replacing tiles", () => {
+        describe("replacing tiles", () => {
             let generator: GeneratorFake<String>
             let board: Board<String>
 
@@ -351,6 +350,6 @@ describe("Board", () => {
                     { kind: 'Refill' },
                 ])
             })
-        })*/
+        })
     })
 })

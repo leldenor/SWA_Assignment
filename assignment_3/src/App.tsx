@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import 'antd/dist/reset.css';
 import './App.css';
 import { Login } from './screens/Login';
@@ -11,7 +10,6 @@ import { HighScores } from './screens/HighScores';
 
 function App() {
   const gameState = useSelector((s: State) => s.game)
-  console.log(gameState);
 
   switch (gameState.mode) {
     case "login":

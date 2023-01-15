@@ -12,7 +12,6 @@ export const HighScores = (props: any) => {
     const gameState = useSelector((s: State) => s.game)
     const dispatch: Dispatch = useDispatch()
     useEffect(() => {
-        console.log(gameState);
 
         fetch(`http://localhost:9090/games?token=${gameState.token}`)
             .then(res => res.ok ? res.json() : message.error("Something went wrong"))

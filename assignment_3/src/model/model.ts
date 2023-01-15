@@ -82,12 +82,10 @@ const checkVertical = (board: Board, isCheck: boolean): Position[] => {
     let allPos: Position[] = []
 
     board2.forEach(b => {
-        console.log("Piecee", somePiece, b);
 
         if (somePiece != -1) {
             if (b.position.col == column) {
                 if (somePiece == b.piece) {
-                    console.log("Pieceee", somePiece, b, count);
                     count++
                     positions.push(b.position)
                     thePiece = b.piece
@@ -130,7 +128,6 @@ const checkVertical = (board: Board, isCheck: boolean): Position[] => {
             somePiece = -1
         }
     });
-    console.log(allPos);
 
     return allPos
 }
@@ -139,7 +136,6 @@ const checkHorizontal = (board: Board, isCheck: boolean): Position[] => {
     let check = false
     let board2: Tile[] = _.cloneDeep(board.tiles)
     board2 = _.sortBy(board2, [(u: Tile) => { return u.position.row }])
-    console.log(board2);
 
     let count = 0
     let positions: Position[] = []
@@ -148,11 +144,9 @@ const checkHorizontal = (board: Board, isCheck: boolean): Position[] => {
     let thePiece: number
     let allPos: Position[] = []
     board2.forEach(b => {
-        console.log("PieceeH", somePiece, b);
         if (somePiece != -1) {
             if (b.position.row == row) {
                 if (somePiece == b.piece) {
-                    console.log("PieceeH", somePiece, b, count);
 
                     count++
                     positions.push(b.position)
@@ -165,11 +159,9 @@ const checkHorizontal = (board: Board, isCheck: boolean): Position[] => {
                     count = 0
                     positions = []
                 }
-                console.log(count);
 
                 if (count > 2 && somePiece != b.piece) {
                     check = true
-                    console.log(positions);
 
                     _.each(positions, (p: Position) => {
                         allPos.push(p)
@@ -200,7 +192,6 @@ const checkHorizontal = (board: Board, isCheck: boolean): Position[] => {
             somePiece = -1
         }
     });
-    console.log(allPos);
 
     return allPos
 }
@@ -249,7 +240,6 @@ export function move(board: Board, first: Position, second: Position): Board {
         let newBoard: Board = { tiles: board2, height: board.height, width: board.width, score: board.score }
         console.warn(newBoard);
         let can = canMove(newBoard, first, second)
-        console.log(can);
 
         if (can) {
 

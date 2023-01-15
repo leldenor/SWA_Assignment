@@ -8,7 +8,6 @@ import { newGame, scores, logout } from "../thunks"
 
 export const Profile = () => {
     const gameState = useSelector((s: State) => s.game)
-    console.log(gameState);
 
     const updateUser = async (values: any) => {
         const response = await fetch(`http://localhost:9090/users/${gameState.player?.id}?token=${gameState.token}`, { method: 'PATCH', body: JSON.stringify(values), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } })

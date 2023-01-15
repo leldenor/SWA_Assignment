@@ -17,13 +17,10 @@ export const PlayGame = () => {
     }, [])
 
     const onSelectTile = (tile: Tile) => {
-        console.log(tile);
 
         if (selectedTile.piece != -1) {
-            console.log(selectedTile);
 
             let s = move(board, tile.position, selectedTile.position)
-            console.log(s);
 
             setBoard(s)
             setSelectedTile({ piece: -1, position: { row: -1, col: -1 } })
@@ -36,7 +33,6 @@ export const PlayGame = () => {
         let gameM = _.cloneDeep(gameState)
         if (gameM.game) {
             gameM.game.score = board.score
-            console.log(gameState);
 
             dispatch(updateGame(gameM.game, (gameState.token || ""), gameM.player || { id: -1, username: "", password: "" }))
         }
